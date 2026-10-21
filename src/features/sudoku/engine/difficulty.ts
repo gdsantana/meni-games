@@ -13,7 +13,7 @@ export function evaluateDifficulty(grid: number[]): Difficulty | null {
   const board = [...grid], excluded = Array(81).fill(0) as number[];
   let tier = 1;
   for (let guard = 0; guard < 500; guard++) {
-    if (board.every(Boolean)) return tier === 1 ? 'easy' : tier === 2 ? 'medium' : 'hard';
+    if (board.every(Boolean)) return tier === 1 ? 'easy' : 'medium';
     const masks = board.map((v, i) => v ? 0 : candidates(board, i) & ~excluded[i]);
     let changed = false;
     for (let i = 0; i < 81; i++) if (!board[i] && popcount(masks[i]) === 1) { board[i] = digits(masks[i])[0]; changed = true; }
@@ -44,6 +44,7 @@ export function evaluateDifficulty(grid: number[]): Difficulty | null {
     }
     if (changed) { tier = Math.max(tier, 2); continue; }
 
+    /* X-Wing desativado: o difícil usa as técnicas do médio com menos pistas, evitando o salto de complexidade.
     // X-Wing across rows or columns.
     for (let n = 1; n <= 9 && !changed; n++) for (const transpose of [false, true]) {
       const lines = Array.from({ length: 9 }, (_, r) => Array.from({ length: 9 }, (_, c) => transpose ? c * 9 + r : r * 9 + c).filter((i) => !board[i] && (masks[i] & (1 << n))));
@@ -56,14 +57,7 @@ export function evaluateDifficulty(grid: number[]): Difficulty | null {
         }
       }
     }
-    if (changed) { tier = 3; continue; }
-
-    // A candidate is disproved when assuming it leaves no valid completion.
-    for (let i = 0; i < 81 && !changed; i++) if (!board[i]) for (const n of digits(masks[i])) {
-      const trial = [...board]; trial[i] = n;
-      if (countSolutions(trial, 1) === 0) { excluded[i] |= 1 << n; changed = true; break; }
-    }
-    if (changed) { tier = 3; continue; }
+    */
     return null;
   }
   return null;

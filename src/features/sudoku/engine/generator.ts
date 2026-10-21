@@ -25,7 +25,7 @@ function createSolution(): number[] {
   return grid;
 }
 
-const clueRanges: Record<Difficulty, [number, number]> = { easy: [39, 44], medium: [23, 25], hard: [22, 26] };
+const clueRanges: Record<Difficulty, [number, number]> = { easy: [39, 44], medium: [27, 30], hard: [24, 26] };
 
 export function generatePuzzle(difficulty: Difficulty): Puzzle {
   if (difficulty !== 'easy' && difficulty !== 'medium' && difficulty !== 'hard') throw new Error(`Dificuldade inválida: ${difficulty}`);
@@ -41,7 +41,7 @@ export function generatePuzzle(difficulty: Difficulty): Puzzle {
       if (countSolutions(puzzle) !== 1) puzzle[i] = value;
     }
     if (puzzle.filter(Boolean).length > max) continue;
-    if (evaluateDifficulty(puzzle) !== difficulty) continue;
+    if (evaluateDifficulty(puzzle) !== (difficulty === 'hard' ? 'medium' : difficulty)) continue;
     return { id: globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`, difficulty, puzzle, solution };
   }
   throw new Error('Não foi possível preparar este desafio. Tente novamente.');
