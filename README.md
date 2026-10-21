@@ -72,3 +72,9 @@ Inclua metadados em `src/lib/games/registry.ts`, implemente uma rota em `src/app
 Sem frameworks ou suites de testes automatizados, conforme o escopo. Validação por build de produção, TypeScript, lint e autochecagens temporárias de geração, estado e persistência. O layout usa tabuleiro quadrado, largura fluida, áreas seguras e controles que permitem rolagem natural em telas baixas. A experiência em aparelhos físicos ainda deve ser conferida antes de uma publicação pública.
 
 Roadmap: novos módulos de caça-palavras, memória, campo minado, 2048 e jogo da velha; explicações didáticas das dicas; calibração da dificuldade com jogadores reais.
+
+## Prévia de compartilhamento
+
+Os metadados Open Graph e Twitter incluem título, descrição em português e a imagem `public/brand/social-preview.png` (1200×630), com a logo original em fundo claro. As páginas herdam a prévia da plataforma.
+
+Configure `NEXT_PUBLIC_SITE_URL` com o endereço público completo (incluindo `https://`) antes do build. Na Vercel, o endereço de produção é detectado automaticamente quando disponível. Sem configuração, o desenvolvimento usa `http://localhost:3000`. A imagem precisa estar acessível publicamente para que aplicativos de mensagens carreguem a prévia; serviços podem manter versões antigas em cache.
