@@ -1,4 +1,4 @@
-import { Brain, Bomb, Grid2X2, Search, Sparkles } from "lucide-react";
+import { Brain, Grid2X2, Search } from "lucide-react";
 import type { Game } from "./types";
 
 export const games: Game[] = [
@@ -31,25 +31,5 @@ export const games: Game[] = [
     available: true,
     accent: "lavender",
     label: "Disponível",
-  },
-  {
-    id: "memory-match",
-    name: "Jogo da memória",
-    description: "Vire as cartas e encontre todos os pares.",
-    href: "#",
-    icon: Sparkles,
-    available: false,
-    accent: "peach",
-    label: "Em breve",
-  },
-  {
-    id: "minesweeper",
-    name: "Campo minado",
-    description: "Use a lógica para descobrir cada casa segura.",
-    href: "#",
-    icon: Bomb,
-    available: false,
-    accent: "mint",
-    label: "Em breve",
   },
 ];
