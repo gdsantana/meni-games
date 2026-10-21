@@ -1,0 +1,24 @@
+.ws-shell { max-width: 520px; margin: 0 auto; min-height: 100dvh; padding: max(12px, env(safe-area-inset-top)) 12px max(24px, env(safe-area-inset-bottom)); }
+.ws-topbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 48px; margin-bottom: 24px; }
+.ws-topbar>svg { margin: 10px; color: #8779b6; }
+.ws-intro { padding-top: 20px; text-align: center; }
+.ws-symbol { display: grid; place-items: center; width: 88px; height: 88px; margin: 0 auto 22px; background: #f2effc; color: #7967ac; border-radius: 24px; }
+.ws-intro h1 { font-size: clamp(24px, 6vw, 30px); font-weight: 800; letter-spacing: -.8px; }
+.ws-intro>p { margin-top: 12px; color: var(--muted-foreground); font-size: 14px; }
+.ws-theme { display: grid; gap: 8px; text-align: left; margin-top: 26px; font-size: 14px; font-weight: 750; }
+.ws-theme select { width: 100%; font: inherit; font-size: 16px; min-height: 48px; padding: 8px 12px; border: 1px solid var(--border); border-radius: 12px; background: white; }
+.ws-intro h2 { text-align: left; margin: 24px 0 12px; font-size: 14px; font-weight: 750; }
+.ws-levels { display: grid; gap: 10px; }
+.ws-level { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 17px 14px; border: 1px solid var(--border); border-radius: 16px; background: white; text-align: left; cursor: pointer; }
+.ws-level strong { display: block; font-size: 17px; }.ws-level small { font-size: 11px; font-weight: 600; margin-left: 8px; color: #7967ac; }.ws-level span>span { display: block; font-size: 12px; color: var(--muted-foreground); margin-top: 4px; }
+.ws-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }.ws-heading h1 { font-size: 26px; font-weight: 800; letter-spacing: -.7px; }.ws-heading>span { border-radius: 10px; padding: 4px 10px; font-size: 12px; background: #f2effc; color: #695798; font-weight: 750; }
+.ws-progress { display: flex; justify-content: space-between; gap: 8px; margin-top: 10px; font-size: 13px; color: var(--muted-foreground); }
+.ws-caption { font-size: 12px; color: var(--muted-foreground); line-height: 1.6; margin: 14px 0; text-align: center; }
+.ws-board { display: grid; aspect-ratio: 1; width: 100%; padding: 0; overflow: hidden; border-radius: 12px; background: white; box-shadow: 0 0 0 1px #dcd5ed; touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; overscroll-behavior: contain; }
+.ws-cell { display: grid; place-items: center; min-width: 0; padding: 0; font-size: clamp(14px, 3.8vw, 19px); line-height: 1; font-weight: 800; color: #51425e; border: 1px solid #f5f0f8; background: white; cursor: pointer; touch-action: none; }
+.ws-cell:disabled { cursor: default; }.ws-found { background: #e7f3ec; color: #285c43; text-decoration: underline; text-underline-offset: 4px; }.ws-selected { background: #e4daf9; box-shadow: inset 0 0 0 2px #8779b6; }.ws-hint { background: #fff1cf; box-shadow: inset 0 0 0 2px #9d741c; }
+.ws-cell:focus-visible { outline: 3px solid #695798; outline-offset: -3px; z-index: 1; }.ws-level:focus-visible,.ws-theme select:focus-visible { outline: 3px solid #8779b6; outline-offset: 2px; }
+.ws-words { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; padding: 0; list-style: none; margin: 20px 0; }.ws-words li { display: flex; align-items: center; justify-content: center; gap: 5px; padding: 8px 4px; border-radius: 10px; background: #f5f1fb; font-size: 12px; font-weight: 750; }.ws-words li>span { min-width: 0; overflow-wrap: anywhere; }.ws-words li>svg { flex-shrink: 0; }.ws-words .ws-word-found { background: #e7f3ec; color: #285c43; }.ws-word-found>span:first-of-type { text-decoration: line-through; }
+.ws-actions { display: flex; justify-content: center; gap: 12px; }.ws-message { min-height: 40px; margin: 14px 0; font-size: 13px; text-align: center; color: #695798; }.ws-notice { padding: 12px; border: 1px solid var(--border); border-radius: 12px; font-size: 13px; margin-bottom: 12px; }
+@media (min-width: 380px) { .ws-words { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (hover: hover) and (pointer: fine) { .ws-level:hover { background: #faf7ff; border-color: #b5a5d5; } }
