@@ -51,7 +51,7 @@ export default function Home() {
           <div className="flex min-h-[210px] items-center justify-center border-t border-[#f6e9ee] bg-[#fff8fa] px-8 py-5 sm:border-l sm:border-t-0"><SudokuPreview /></div>
         </Link>
 
-        <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
+        <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
           {otherGames.map((game) => {
             const Icon = game.icon;
             return <article key={game.id} aria-label={`${game.name}, ${game.available ? "disponível" : "em breve"}`} className="flex min-h-[126px] items-start gap-3.5 rounded-2xl border border-[#f2e6eb] bg-white/70 p-4 sm:p-5">

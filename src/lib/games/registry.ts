@@ -1,7 +1,17 @@
-import { Bomb, Grid2X2, Search, Sparkles } from "lucide-react";
+import { Brain, Bomb, Grid2X2, Search, Sparkles } from "lucide-react";
 import type { Game } from "./types";
 
 export const games: Game[] = [
+  {
+    id: "logic",
+    name: "Jogos de lógica",
+    description: "Conecte pistas e descubra quem é quem. Com especial Taylor Swift.",
+    href: "/games/logic",
+    icon: Brain,
+    available: true,
+    accent: "peach",
+    label: "Disponível",
+  },
   {
     id: "sudoku",
     name: "Sudoku",

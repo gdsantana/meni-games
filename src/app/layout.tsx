@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 
 const title = "Meni Games — um intervalo gostoso";
-const description = "Jogos leves para desacelerar, se divertir e exercitar a mente. Jogue Sudoku e caça-palavras grátis, no seu ritmo, com progresso salvo.";
+const description = "Jogos leves para desacelerar, se divertir e exercitar a mente. Jogue Sudoku, caça-palavras e jogos de lógica grátis, no seu ritmo, com progresso salvo.";
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL
   ?? (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : undefined)
   ?? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000');
