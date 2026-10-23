@@ -13,14 +13,14 @@ export function evaluateDifficulty(grid: number[]): Difficulty | null {
   const board = [...grid], excluded = Array(81).fill(0) as number[];
   let tier = 1;
   for (let guard = 0; guard < 500; guard++) {
-    if (board.every(Boolean)) return tier === 1 ? 'easy' : 'medium';
+    if (board.every(Boolean)) return tier === 1 ? 'easy' : tier === 2 ? 'medium' : 'hard';
     const masks = board.map((v, i) => v ? 0 : candidates(board, i) & ~excluded[i]);
     let changed = false;
     for (let i = 0; i < 81; i++) if (!board[i] && popcount(masks[i]) === 1) { board[i] = digits(masks[i])[0]; changed = true; }
     if (!changed) for (const unit of units) {
       for (let n = 1; n <= 9; n++) {
         const spots = unit.filter((i) => !board[i] && (masks[i] & (1 << n)) !== 0);
-        if (spots.length === 1) { board[spots[0]] = n; changed = true; break; }
+        if (spots.length === 1) { board[spots[0]] = n; tier = Math.max(tier, 2); changed = true; break; }
       }
       if (changed) break;
     }
@@ -34,17 +34,11 @@ export function evaluateDifficulty(grid: number[]): Difficulty | null {
       if (spots.every((i) => Math.floor(i / 9) === row)) for (let c = 0; c < 9; c++) { const i = row * 9 + c; if (!cells.includes(i) && (masks[i] & (1 << n))) { excluded[i] |= 1 << n; changed = true; } }
       else if (spots.every((i) => i % 9 === col)) for (let r = 0; r < 9; r++) { const i = r * 9 + col; if (!cells.includes(i) && (masks[i] & (1 << n))) { excluded[i] |= 1 << n; changed = true; } }
     }
-    if (changed) { tier = Math.max(tier, 2); continue; }
+    if (changed) { tier = 3; continue; }
 
-    // Naked pairs in any row, column, or box.
-    for (const unit of units) {
-      const pairs = new Map<number, number[]>();
-      for (const i of unit) if (!board[i] && popcount(masks[i]) === 2) pairs.set(masks[i], [...(pairs.get(masks[i]) ?? []), i]);
-      for (const [pair, cells] of pairs) if (cells.length === 2) for (const i of unit) if (!cells.includes(i) && (masks[i] & pair)) { excluded[i] |= pair; changed = true; }
-    }
-    if (changed) { tier = Math.max(tier, 2); continue; }
+    // Pares nus desativados para manter o difícil acessível.
 
-    /* X-Wing desativado: o difícil usa as técnicas do médio com menos pistas, evitando o salto de complexidade.
+    /* X-Wing desativado: o difícil usa no máximo candidatos bloqueados, evitando o salto de complexidade.
     // X-Wing across rows or columns.
     for (let n = 1; n <= 9 && !changed; n++) for (const transpose of [false, true]) {
       const lines = Array.from({ length: 9 }, (_, r) => Array.from({ length: 9 }, (_, c) => transpose ? c * 9 + r : r * 9 + c).filter((i) => !board[i] && (masks[i] & (1 << n))));

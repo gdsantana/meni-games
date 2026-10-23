@@ -25,24 +25,25 @@ function createSolution(): number[] {
   return grid;
 }
 
-const clueRanges: Record<Difficulty, [number, number]> = { easy: [39, 44], medium: [27, 30], hard: [24, 26] };
+const clueRanges: Record<Difficulty, [number, number]> = { easy: [44, 48], medium: [36, 42], hard: [30, 35] };
 
 export function generatePuzzle(difficulty: Difficulty): Puzzle {
   if (difficulty !== 'easy' && difficulty !== 'medium' && difficulty !== 'hard') throw new Error(`Dificuldade inválida: ${difficulty}`);
   const [min, max] = clueRanges[difficulty];
-  const budget = 60;
+  const budget = 300;
   for (let attempt = 0; attempt < budget; attempt++) {
     const solution = createSolution();
     const puzzle = [...solution];
     const target = min + Math.floor(Math.random() * (max - min + 1));
     for (const i of shuffled(Array.from({ length: 81 }, (_, n) => n))) {
-      if (puzzle.filter(Boolean).length <= target) break;
+      if (puzzle.filter(Boolean).length <= min) break;
       const value = puzzle[i]; puzzle[i] = 0;
-      if (countSolutions(puzzle) !== 1) puzzle[i] = value;
+      if (countSolutions(puzzle) !== 1) { puzzle[i] = value; continue; }
+      // Continue removendo até o mínimo se o alvo sorteado ainda não tiver a técnica exigida.
+      if (puzzle.filter(Boolean).length <= target && evaluateDifficulty(puzzle) === difficulty) {
+        return { id: globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`, difficulty, puzzle, solution };
+      }
     }
-    if (puzzle.filter(Boolean).length > max) continue;
-    if (evaluateDifficulty(puzzle) !== (difficulty === 'hard' ? 'medium' : difficulty)) continue;
-    return { id: globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`, difficulty, puzzle, solution };
   }
   throw new Error('Não foi possível preparar este desafio. Tente novamente.');
 }
