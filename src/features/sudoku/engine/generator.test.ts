@@ -24,6 +24,21 @@ test('difficulty separates singles, hidden singles and locked candidates', () =>
   assert.equal(evaluateDifficulty(Array(81).fill(0)), null);
 });
 
+test('a new puzzle does not repeat the previous board', () => {
+  const random = Math.random;
+  let seed = 123;
+  Math.random = () => ((seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0) / 4294967296);
+  try {
+    const previous = generatePuzzle('easy');
+    seed = 123;
+    const next = generatePuzzle('easy', previous.puzzle);
+    assert.notDeepEqual(next.puzzle, previous.puzzle);
+    assert.equal(countSolutions(next.puzzle), 1);
+  } finally {
+    Math.random = random;
+  }
+});
+
 test('all levels generate unique puzzles within the new clue and technique ranges', () => {
   const ranges: Record<Difficulty, [number, number]> = { easy: [44, 48], medium: [36, 42], hard: [30, 35] };
   const random = Math.random;

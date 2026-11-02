@@ -27,7 +27,7 @@ function createSolution(): number[] {
 
 const clueRanges: Record<Difficulty, [number, number]> = { easy: [44, 48], medium: [36, 42], hard: [30, 35] };
 
-export function generatePuzzle(difficulty: Difficulty): Puzzle {
+export function generatePuzzle(difficulty: Difficulty, previous?: number[]): Puzzle {
   if (difficulty !== 'easy' && difficulty !== 'medium' && difficulty !== 'hard') throw new Error(`Dificuldade inválida: ${difficulty}`);
   const [min, max] = clueRanges[difficulty];
   const budget = 300;
@@ -41,6 +41,7 @@ export function generatePuzzle(difficulty: Difficulty): Puzzle {
       if (countSolutions(puzzle) !== 1) { puzzle[i] = value; continue; }
       // Continue removendo até o mínimo se o alvo sorteado ainda não tiver a técnica exigida.
       if (puzzle.filter(Boolean).length <= target && evaluateDifficulty(puzzle) === difficulty) {
+        if (previous?.every((value, index) => value === puzzle[index])) break;
         return { id: globalThis.crypto?.randomUUID?.() ?? `${Date.now()}-${Math.random().toString(36).slice(2)}`, difficulty, puzzle, solution };
       }
     }

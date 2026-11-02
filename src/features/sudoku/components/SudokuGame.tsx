@@ -51,7 +51,7 @@ export function SudokuGame() {
       };
       current.onerror = () => { finish(); setError('Não foi possível criar o jogo. Tente novamente.'); };
       timeout.current = setTimeout(() => { finish(); setError('Este desafio levou mais tempo que o esperado. Tente novamente.'); }, 45000);
-      current.postMessage(difficulty);
+      current.postMessage({ difficulty, previous: state.puzzle?.puzzle });
     } catch { setGenerating(null); setError('Não foi possível iniciar o gerador. Recarregue a página e tente novamente.'); }
   }
   function requestGame(difficulty: Difficulty) {
